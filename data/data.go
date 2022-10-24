@@ -12,8 +12,9 @@ var db *sql.DB
 func OpenDatabase() error {
 	var err error
 
-	db, err := sql.Open("sqlite3", "./sqlite-database.db")
+	db, err = sql.Open("sqlite3", "./sqlite-database.db")
 	if err != nil {
+		log.Print(err.Error())
 		return err
 	}
 
@@ -22,11 +23,11 @@ func OpenDatabase() error {
 
 func CreateTable() {
 	createTableSQL := `CREATE TABLE IF NOT EXISTS studybuddy (
-    "idNote" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "word" TEXT,
-    "definition" TEXT,
-    "category" TEXT
-  );`
+		"idNote" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+		"word" TEXT,
+		"definition" TEXT,
+		"category" TEXT
+	  );`
 
 	statement, err := db.Prepare(createTableSQL)
 	if err != nil {
