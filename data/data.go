@@ -37,3 +37,18 @@ func CreateTable() {
 	statement.Exec()
 	log.Println("Studdybuddy table create")
 }
+
+func InsertNote(word, definition, category string) {
+	insertNoteSQL := `INSERT INTO studybuddy(word, definition, category) VALUES (?, ?, ?)`
+	statement, err := db.Prepare(insertNoteSQL)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	_, err = statement.Exec(word, definition, category)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Println("Inserted study note successfully")
+}
